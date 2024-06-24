@@ -3,17 +3,24 @@ package com.crlsistemas.book.auth;
 import com.crlsistemas.book.email.EmailService;
 import com.crlsistemas.book.email.EmailTemplateName;
 import com.crlsistemas.book.role.RoleRepository;
+import com.crlsistemas.book.security.JwtService;
 import com.crlsistemas.book.user.Token;
 import com.crlsistemas.book.user.TokenRepository;
 import com.crlsistemas.book.user.User;
 import com.crlsistemas.book.user.UserRepository;
 import jakarta.mail.MessagingException;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -25,8 +32,11 @@ public class AuthenticationService {
     private final UserRepository userRepository;
     private final TokenRepository tokenRepository;
     private final EmailService emailService;
+    private final AuthenticationManager authenticationManager;
+    private final JwtService jwtService;
 
-    @Value("${application.mailing.frontend.activation-url}")
+    //@Value("${application.mailing.frontend.activation-url}")
+    @Value("@{application.mailing.frontend.activation-url}")
     private String activationUrl;
 
     public void register(RegistrationRequest request) throws MessagingException {
@@ -70,8 +80,6 @@ public class AuthenticationService {
                 .build();
         tokenRepository.save(token);
         return generatedToken;
-
-
     }
 
     private String generateActivationCode(int length) {
@@ -83,6 +91,37 @@ public class AuthenticationService {
             codeBuilder.append(characters.charAt(randomIndex));
         }
         return codeBuilder.toString();
+    }
+
+    public AuthenticationResponse authenticate(AuthenticantionRequest request) {
+        var auth = authenticationManager.authenticate(
+          new UsernamePasswordAuthenticationToken(
+                  request.getEmail(),
+                  request.getPassword()
+          )
+        );
+        var claims = new HashMap<String, Object>();
+        var user = ((User)auth.getPrincipal());
+        claims.put("fullName", user.fullName());
+        var jwtToken = jwtService.generateToken(claims, user);
+        return AuthenticationResponse.builder()
+                .token(jwtToken).build();
+    }
+
+    //@Transactional
+    public void activateAccount(String token) throws MessagingException {
+        Token savedToken = tokenRepository.findByToken(token)
+                // definir exceção
+                .orElseThrow(() -> new RuntimeException("Invalid token"));
+        if(LocalDateTime.now().isAfter(savedToken.getExpiresAt())){
+            sendValidationEmail(savedToken.getUser());
+            throw new RuntimeException("Activation token has expired. A new token has been sent the same email adsres");
+        }
+        var user = userRepository.findById(savedToken.getUser().getId())
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        user.setEnabled(true);
+        userRepository.save(user);
+        tokenRepository.save(savedToken);
 
     }
 }

@@ -5,7 +5,6 @@ import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMailMessage;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -60,11 +59,11 @@ public class EmailService {
         helper.setTo(to);
         helper.setSubject(subject);
 
-        String templates = templateEngine.process(templateName, context);
+        String template = templateEngine.process(templateName, context);
 
-        helper.setText(templates, true);
+        helper.setText(template, true);
         mailSender.send(mimeMessage);
 
 
-    };
+    }
 }

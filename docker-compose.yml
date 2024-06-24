@@ -1,16 +1,17 @@
+
 services:
   postgres:
     container_name: postgres-sql-bsn
     image: postgres
     environment:
-      POSTGRES_USER: username
-      POSTGRES_PASSWORD: password
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: pizza123
       PGDATA: /var/lib/postgresql/data
       POSTGRES_DB: book_social_network
     volumes:
       - postgres:/data/postgres
     ports:
-      - 5432:5432
+      - 5433:5432
     networks:
       - spring-demo
     restart: unless-stopped
@@ -23,7 +24,6 @@ services:
 networks:
   spring-demo:
     driver: bridge
-
 volumes:
   postgres:
     driver: local
