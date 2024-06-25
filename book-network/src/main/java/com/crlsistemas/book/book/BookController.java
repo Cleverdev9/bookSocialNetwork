@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.core.Authentication;
+import com.crlsistemas.book.common.PageResponse;
 
 @RestController
 @RequestMapping("books")
@@ -29,6 +30,15 @@ public class BookController {
             @PathVariable("book-id") Integer bookId
     ){
         return ResponseEntity.ok(service.findById(bookId));
+    }
+
+    @GetMapping
+    public ResponseEntity<PageResponse<BookResponse>> findAllBooks(
+        @RequestParam(name = "page", defaultValue = "0", required = false) int page,
+        @RequestParam(name = "size", defaultValue = "10", required = false) int size,
+        Authentication connectedUser
+        ){
+        return ResponseEntity.ok(service.findAllBooks(page, size, connectedUser));
     }
 
 }
