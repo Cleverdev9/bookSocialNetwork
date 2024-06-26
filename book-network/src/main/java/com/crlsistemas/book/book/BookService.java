@@ -185,7 +185,7 @@ public class BookService {
             .orElseThrow(() -> new OperationNotPermittedException("You did not borrow this book"));
             bookTransactionHistory.setReturned(true);
             return transactionHistoryRepository.save(bookTransactionHistory).getId();
-    }
+        }
 
 
     public Integer approveReturnBorrowedBook(Integer bookId, Authentication connectedUser) {
