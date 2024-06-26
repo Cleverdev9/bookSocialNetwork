@@ -1,5 +1,6 @@
 package com.crlsistemas.book.book;
 
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -7,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.core.Authentication;
 import com.crlsistemas.book.common.PageResponse;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.RequestPart;
 
 @RestController
 @RequestMapping("books")
@@ -107,6 +110,17 @@ public class BookController {
             Authentication connectedUser
     ){
         return ResponseEntity.ok(service.approveReturnBorrowedBook(bookId, connectedUser));
+    }
+
+    @PostMapping(value = "/cover/{book-id}", consumes = "multipart/form-data")
+    public ResponseEntity<?> uploadBookCoverPicture(
+            @PathVariable("book-id") Integer bookId,
+            @Parameter()
+            @RequestPart("file") MultipartFile file,
+            Authentication connectedUser
+    ){
+    service.uploadBookCoverPicture(file, connectedUser, bookId);
+    return ResponseEntity.accepted().build();
     }
 
 }
