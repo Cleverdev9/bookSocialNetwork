@@ -1,0 +1,5 @@
+package com.crlsistemas.booknetwork.feedback;
+
+public record FeedbackRequest() {
+
+}

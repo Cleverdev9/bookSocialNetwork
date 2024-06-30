@@ -1,0 +1,5 @@
+package com.crlsistemas.booknetwork.exception;
+
+public class OperationNotPermittedException {
+
+}

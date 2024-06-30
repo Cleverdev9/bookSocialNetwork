@@ -1,0 +1,5 @@
+package com.crlsistemas.booknetwork.config;
+
+public class BeansConfig {
+
+}
