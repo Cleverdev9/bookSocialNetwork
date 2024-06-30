@@ -1,9 +1,14 @@
 package com.crlsistemas.booknetwork.auth;
 
+<<<<<<< HEAD:bookSocialNetwork/.metadata/.plugins/org.eclipse.core.resources/.history/95/f01cb8fa5f35001f126583ed91830763
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
+=======
+import jakarta.persistence.Column;
+import jakarta.validation.constraints.*;
+>>>>>>> 48bb36c90ceba905ee7280c6d4d4264e7fb98473:book-network/src/main/java/com/crlsistemas/book/auth/RegistrationRequest.java
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,15 +16,33 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
+<<<<<<< HEAD:bookSocialNetwork/.metadata/.plugins/org.eclipse.core.resources/.history/95/f01cb8fa5f35001f126583ed91830763
 public class AuthenticationRequest {
 	@Email(message = "Email is not formatted")
+=======
+public class RegistrationRequest {
+
+    @NotEmpty(message = "Firstname is not mandatory")
+    @NotNull(message = "Firstname is mandatory")
+    private String firstname;
+
+    @NotEmpty(message = "Lastname is not mandatory")
+    @NotNull(message = "Lastname is mandatory")
+    private String lastname;
+
+    @Email(message = "Email is not formatted")
+>>>>>>> 48bb36c90ceba905ee7280c6d4d4264e7fb98473:book-network/src/main/java/com/crlsistemas/book/auth/RegistrationRequest.java
     @NotEmpty(message = "Email is not mandatory")
-    @NotBlank(message = "Email is mandatory")
+    @NotNull(message = "Email is mandatory")
     private String email;
 
 
     @NotEmpty(message = "Password is not mandatory")
+<<<<<<< HEAD:bookSocialNetwork/.metadata/.plugins/org.eclipse.core.resources/.history/95/f01cb8fa5f35001f126583ed91830763
     @NotBlank(message = "Password is mandatory")
+=======
+    @NotNull(message = "Password is mandatory")
+>>>>>>> 48bb36c90ceba905ee7280c6d4d4264e7fb98473:book-network/src/main/java/com/crlsistemas/book/auth/RegistrationRequest.java
     @Size(min = 8, message = "Password should be 8 characters long minimum")
     private String password;
 

@@ -43,7 +43,11 @@ public class JwtService {
     }
 
     public String generateToken(HashMap<String, Object> claims, UserDetails userDetails) {
+<<<<<<< HEAD:bookSocialNetwork/booknetwork/src/main/java/com/crlsistemas/booknetwork/security/JwtService.java
 
+=======
+      
+>>>>>>> 48bb36c90ceba905ee7280c6d4d4264e7fb98473:book-network/src/main/java/com/crlsistemas/book/security/JwtService.java
         return buildToken(claims, userDetails, jwtExpiration);
     }
 

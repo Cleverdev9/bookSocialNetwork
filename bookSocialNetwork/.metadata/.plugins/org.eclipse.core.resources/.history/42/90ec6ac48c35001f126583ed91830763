@@ -1,14 +1,18 @@
 package com.crlsistemas.booknetwork.auth;
 
+<<<<<<< HEAD:bookSocialNetwork/.metadata/.plugins/org.eclipse.core.resources/.history/42/90ec6ac48c35001f126583ed91830763
+=======
+
+
+
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.mail.MessagingException;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+>>>>>>> 48bb36c90ceba905ee7280c6d4d4264e7fb98473:book-network/src/main/java/com/crlsistemas/book/auth/AuthenticationController.java
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.mail.MessagingException;
@@ -44,4 +48,9 @@ public class AuthenticationController {
     ) throws MessagingException {
         service.activateAccount(token);
     }
+<<<<<<< HEAD:bookSocialNetwork/.metadata/.plugins/org.eclipse.core.resources/.history/42/90ec6ac48c35001f126583ed91830763
+=======
+
+
+>>>>>>> 48bb36c90ceba905ee7280c6d4d4264e7fb98473:book-network/src/main/java/com/crlsistemas/book/auth/AuthenticationController.java
 }

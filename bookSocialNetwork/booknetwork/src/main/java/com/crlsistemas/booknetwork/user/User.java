@@ -1,3 +1,4 @@
+<<<<<<< HEAD:bookSocialNetwork/booknetwork/src/main/java/com/crlsistemas/booknetwork/user/User.java
 package com.crlsistemas.booknetwork.user;
 import java.security.Principal;
 import java.time.LocalDate;
@@ -5,6 +6,20 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
+=======
+package com.crlsistemas.book.user;
+
+import com.crlsistemas.book.book.Book;
+import com.crlsistemas.book.history.BookTransactionHistory;
+import com.crlsistemas.book.role.Role;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
+import lombok.NoArgsConstructor;
+
+>>>>>>> 48bb36c90ceba905ee7280c6d4d4264e7fb98473:book-network/src/main/java/com/crlsistemas/book/user/User.java
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
